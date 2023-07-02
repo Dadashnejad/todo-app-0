@@ -1,5 +1,7 @@
 {
   "compilerOptions": {
+    "sourceMap": true,
+    "outDir": "dist",
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
@@ -22,6 +24,9 @@
     "paths": {
       "@/*": ["./src/*"]
     }
+  },
+  "ts-node":{
+    "esm": true
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
   "exclude": ["node_modules"]
