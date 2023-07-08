@@ -1,3 +1,4 @@
+"use client"
 import { useState, ChangeEvent, FormEvent } from "react";
 
 interface NewToDoFormProps {
@@ -6,6 +7,17 @@ interface NewToDoFormProps {
 
 export function NewToDoForm({ onSubmit }: NewToDoFormProps): JSX.Element {
   const [newItem, setNewItem] = useState("");
+  const [task, setTask] = useState("");
+
+  async function submitTask(e: React.FormEvent) {
+    e.preventDefault();
+    const data = await fetch("/api/createTask", {
+      method: "POST",
+      body: JSON.stringify({ task }),
+    });
+    const res = await data.json();
+    if (!res.ok) console.log(res);
+  }
 
   function handleSubmit(e: FormEvent<HTMLFormElement>): void {
     e.preventDefault();
@@ -21,14 +33,18 @@ export function NewToDoForm({ onSubmit }: NewToDoFormProps): JSX.Element {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="new-item-form">
+    <form onSubmit={submitTask}>
       <div className="form-row">
         <label htmlFor="item">New Item</label>
-        <input type="text" value={newItem} onChange={handleChange} id="item" />
+        <input
+          onChange={(e) => setTask(e.target.value)}
+          value={task}
+          type="text"
+        />
+        <button className="btn" disabled={!task} type="submit">
+          Add to list
+        </button>
       </div>
-      <button className="btn" disabled={!newItem}>
-        Add to list
-      </button>
     </form>
   );
 }

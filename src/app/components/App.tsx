@@ -31,7 +31,6 @@ export default function App(): JSX.Element {
     <>
       <NewToDoForm onSubmit={addTodo} />
       <h1 className="header">Todo List</h1>
-      <TodoList todos={todos} toggleTodo={toggleTodo} deleteTodo={deleteTodo} />
     </>
   );
 }
