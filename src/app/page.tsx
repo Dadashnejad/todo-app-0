@@ -1,27 +1,33 @@
 "use client";
+import { use } from "react";
 import App from "./components/App";
-import axios from "axios"
 
-async function gettasks() {
-  const res = await fetch(`/api/getTasks`);
-  if (!res.ok) {
-    console.log(res);
+const fetchMap = new Map<string, Promise<any>>();
+function queryClient<QueryResult>(
+  name: string,
+  query: () => Promise<QueryResult>
+): Promise<QueryResult> {
+  if (!fetchMap.has(name)) {
+    fetchMap.set(name, query());
   }
-  return res.json();
+  return fetchMap.get(name)!;
 }
 
-async function axiosgettasks() {
-  const res = await axios.get("api/getTasks")
+export default function Home() {
+  const data = use(
+    queryClient(
+      "getTasks",
+      () =>
+        fetch("http://localhost:3000/api/getTasks").then((res) =>
+          res.json()
+        ) as Promise<{ id: string; task: string; state: boolean }[]>
+    )
+  );
 
-  return res.json()
-  
-}
-
-export default async function Home() {
-  const data: { id: string, task: string, state: boolean}[] = await gettasks();
   return (
     <main>
-      {data.map(showtasks => (
+      <App/>
+      {data.map((showtasks) => (
         <ul key={showtasks.id}>{showtasks.task}</ul>
       ))}
     </main>

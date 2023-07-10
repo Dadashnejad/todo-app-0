@@ -13,7 +13,7 @@ export function NewToDoForm({ onSubmit }: NewToDoFormProps): JSX.Element {
     e.preventDefault();
     const data = await fetch("/api/createTask", {
       method: "POST",
-      body: JSON.stringify({ task }),
+      body: JSON.stringify({ task }), 
     });
     const res = await data.json();
     if (!res.ok) console.log(res);
