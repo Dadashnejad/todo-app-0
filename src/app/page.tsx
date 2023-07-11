@@ -1,5 +1,5 @@
 "use client";
-import { use } from "react";
+import { use, useEffect, useState } from "react";
 import App from "./components/App";
 
 const fetchMap = new Map<string, Promise<any>>();
@@ -13,6 +13,10 @@ function queryClient<QueryResult>(
   return fetchMap.get(name)!;
 }
 
+// virtual dump
+// use effect
+// tslint
+// const data: {id: string, task: string, state: boolean}
 export default function Home() {
   const data = use(
     queryClient(
@@ -26,9 +30,19 @@ export default function Home() {
 
   return (
     <main>
-      <App/>
+      <App />
       {data.map((showtasks) => (
-        <ul key={showtasks.id}>{showtasks.task}</ul>
+        <ul key={showtasks.id}>
+          <li>
+            <label>
+              <input type="checkbox" checked={showtasks.state} />
+              <span className="text">{showtasks.task}</span>
+            </label>
+            <button className="btn btn-danger">
+              <span className="fas fa-trash">delete</span>
+            </button>
+          </li>
+        </ul>
       ))}
     </main>
   );
