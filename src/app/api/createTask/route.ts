@@ -1,6 +1,7 @@
 // create/post a new task, state
 import type { NextApiRequest, NextApiResponse } from "next";
 import prisma from "../../../../prisma/client";
+import { NextResponse } from "next/server";
 
 type addtaskProps = {
   task: string;
@@ -18,13 +19,13 @@ export default async function POST(req: NextApiRequest, res: NextApiResponse) {
         const data = await prisma.tasktd.create({
           data: {
             task: addtask.task,
-            state: addtask.state,
+            state: false,
           },
         });
-        res.status(200).json(data);
+        return NextResponse.json(data)
       } catch (error) {
-        return res.status(500).json({ message: "Failed to create new task" });
-      }
+        return NextResponse.json({message: "POST Error"}, {status: 500})
+            }
     }
   } catch (error) {
     return res.status(500).json(error);
