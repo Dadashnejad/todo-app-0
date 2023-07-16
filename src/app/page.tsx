@@ -27,6 +27,9 @@ export default function Home() {
         ) as Promise<{ id: string; task: string; state: boolean }[]>
     )
   );
+  function toggle(){
+    return "checked";
+  }
 
   return (
     <main>
@@ -35,7 +38,7 @@ export default function Home() {
         <ul key={showtasks.id}>
           <li>
             <label>
-              <input type="checkbox" checked={showtasks.state} />
+              <input type="checkbox" checked={showtasks.state} onChange={toggle}/>
               <span className="text">{showtasks.task}</span>
             </label>
             <button className="btn btn-danger">

@@ -19,31 +19,16 @@ export function NewToDoForm({ onSubmit }: NewToDoFormProps): JSX.Element {
     if (!res.ok) console.log(res);
   }
 
-  function handleSubmit(e: FormEvent<HTMLFormElement>): void {
-    e.preventDefault();
-    if (newItem === "") return;
-
-    onSubmit(newItem);
-
-    setNewItem("");
-  }
-
-  function handleChange(e: ChangeEvent<HTMLInputElement>): void {
-    setNewItem(e.target.value);
-  }
-
   return (
     <form onSubmit={submitTask}>
       <div className="form-row">
         <label htmlFor="item">New Item</label>
         <input
-          onChange={(e) => setTask(e.target.value)}
-          value={task}
+          name="task"
+          placeholder="new task"
           type="text"
         />
-        <button className="btn" disabled={!task} type="submit">
-          Add to list
-        </button>
+        <button type="submit">Add to list</button>
       </div>
     </form>
   );
