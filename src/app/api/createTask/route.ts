@@ -1,5 +1,4 @@
 // create/post a new task, state
-import type { NextApiRequest, NextApiResponse } from "next"; 
 import prisma from "../../../../prisma/client";
 import { NextResponse, NextRequest } from "next/server";
 
@@ -8,15 +7,18 @@ type addtaskProps = {
   state: boolean;
 };
 
-export async function POST(req: NextApiRequest, res: NextApiResponse) {
-  const addtask: addtaskProps = await JSON.parse(req.body);
-  await prisma.tasktd.create({
-    data: {
-      task: addtask.task,
-      state: false,
-    },
-  });
-  return NextResponse.json({message: "Task added"}, {status: 201})
+export async function POST(request: NextRequest, response: NextResponse) {
+  const data = await request.json()
+  return console.log(data)
+  // console.log(req.body)
+  // const addtask = await JSON.parse(req.body);
+  // await prisma.tasktd.create({
+  //   data: {
+  //     task: addtask.task,
+  //     state: false,
+  //   },
+  // });
+  // return NextResponse.json({message: "Task added"}, {status: 201})
 }
 
 
@@ -24,6 +26,7 @@ export async function POST(req: NextApiRequest, res: NextApiResponse) {
 
 // export function POST(req: NextApiRequest, res: NextApiResponse){
 //   const {method} = req;
+//   console.log(method)
 //   if(method === "POST"){
 //     const { task } = req.body
 //   }
