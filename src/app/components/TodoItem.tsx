@@ -24,18 +24,19 @@ export function TodoItem({
   }
 
   return (
-    <li>
-      <label>
-        <input
-          type="checkbox"
-          checked={completed}
-          onChange={handleToggleTodo}
-        />
-        <span className="text">{title}</span>
-      </label>
-      <button onClick={handleDeleteTodo} className="btn btn-danger">
-        <span className="fas fa-trash"></span>
-      </button>
-    </li>
+    <div></div>
+    // <li>
+    //   <label>
+    //     <input
+    //       type="checkbox"
+    //       checked={completed}
+    //       onChange={handleToggleTodo}
+    //     />
+    //     <span className="text">{title}</span>
+    //   </label>
+    //   <button onClick={handleDeleteTodo} className="btn btn-danger">
+    //     <span className="fas fa-trash"></span>
+    //   </button>
+    // </li>
   );
 }

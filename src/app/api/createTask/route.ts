@@ -8,8 +8,16 @@ type addtaskProps = {
 };
 
 export async function POST(request: NextRequest, response: NextResponse) {
-  const data = await request.json()
-  return console.log(data)
+  const newdata = await request.json()
+  await prisma.tasktd.create({
+    data: {
+      task: newdata.task,
+      state: false
+    }
+  })
+  const res = NextResponse.json({message: "Task added"}, {status: 201})
+  return console.log(res.body)
+
   // console.log(req.body)
   // const addtask = await JSON.parse(req.body);
   // await prisma.tasktd.create({

@@ -1,6 +1,7 @@
 "use client";
 import { use, useEffect, useState } from "react";
 import App from "./components/App";
+import dynamic from "next/dynamic";
 
 const fetchMap = new Map<string, Promise<any>>();
 function queryClient<QueryResult>(
@@ -17,7 +18,7 @@ function queryClient<QueryResult>(
 // use effect
 // tslint
 // const data: {id: string, task: string, state: boolean}
-export default function Home() {
+function Home() {
   const data = use(
     queryClient(
       "getTasks",
@@ -27,26 +28,40 @@ export default function Home() {
         ) as Promise<{ id: string; task: string; state: boolean }[]>
     )
   );
-  function toggle(){
+  function toggle() {
     return "checked";
   }
 
+  async function deleteTask(taskId:string) {
+    const response = await fetch(`http://localhost:3000/api/${taskId}`, {
+      method: "DELETE"
+    })
+    const data = await response
+    console.log(data)
+    location.reload()
+  }
+  
   return (
     <main>
       <App />
-      {data.map((showtasks) => (
-        <ul key={showtasks.id}>
-          <li>
+      <ul>
+        {data.map((showtasks) => (
+          <li key={showtasks.id}>
             <label>
-              <input type="checkbox" checked={showtasks.state} onChange={toggle}/>
+              <input
+                type="checkbox"
+                checked={showtasks.state}
+                onChange={toggle}
+              />
               <span className="text">{showtasks.task}</span>
             </label>
-            <button className="btn btn-danger">
-              <span className="fas fa-trash">delete</span>
+            <button className="btn btn-danger" onClick={() => deleteTask(showtasks.id)}>
+              <span className="fas fa-trash">DEL</span>
             </button>
           </li>
-        </ul>
-      ))}
+        ))}
+      </ul>
     </main>
   );
 }
+export default dynamic(()=> Promise.resolve(Home), {ssr: false})
