@@ -14,10 +14,6 @@ function queryClient<QueryResult>(
   return fetchMap.get(name)!;
 }
 
-// virtual dump
-// use effect
-// tslint
-// const data: {id: string, task: string, state: boolean}
 function Home() {
   const data = use(
     queryClient(
