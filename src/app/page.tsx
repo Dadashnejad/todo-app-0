@@ -37,6 +37,9 @@ function Home() {
     location.reload();
   }
 
+  // Fix this pls Nemidoonam lazeme inja bashe ya na :/ ?
+  async function handleEdit(taskId: string, newTitle: string) {}
+
   return (
     <main>
       <App />
@@ -56,6 +59,12 @@ function Home() {
               onClick={() => deleteTask(showtasks.id)}
             >
               <span className="fas fa-trash">DEL</span>
+            </button>
+            <button
+              className="btn btn-danger"
+              onClick={() => handleEdit(showtasks.id, showtasks.task)}
+            >
+              <span className="fas fa-edit">DEL</span>
             </button>
           </li>
         ))}
