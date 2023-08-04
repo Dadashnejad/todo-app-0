@@ -5,10 +5,11 @@ interface TodoListProps {
     id: string;
     title: string;
     completed: boolean;
+    onEdit: string;
   }[];
   toggleTodo: (id: string, completed: boolean) => void;
   deleteTodo: (id: string) => void;
-  onEdit: (id: string) => void;
+  onEdit: () => void;
 }
 
 export function TodoList({
@@ -26,7 +27,7 @@ export function TodoList({
           {...todo}
           toggleTodo={toggleTodo}
           deleteTodo={deleteTodo}
-          onEdit={() => onEdit(todo.id)}
+          onEdit={onEdit}
         />
       ))}
     </ul>

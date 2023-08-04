@@ -44,67 +44,15 @@ export default function App(): JSX.Element {
     );
   }
 
-  function handleEdit(id: string): void {
-    const todoToEdit = todos.find((todo) => todo.id === id);
-    if (todoToEdit) {
-      setEditedTodo(todoToEdit);
-    }
-  }
-
-  function handleCancelEdit(): void {
-    setEditedTodo(null);
-  }
-
-  function handleSaveEdit(newTitle: string): void {
-    if (editedTodo) {
-      setTodos((currentTodos) =>
-        currentTodos.map((todo) =>
-          todo.id === editedTodo.id ? { ...todo, title: newTitle } : todo
-        )
-      );
-      setEditedTodo(null);
-    }
-  }
-
-  function handleDeleteTodo(id: string): void {
+  function deleteTodo(id: string): void {
     setTodos((currentTodos) => currentTodos.filter((todo) => todo.id !== id));
-    if (editedTodo?.id === id) {
-      setEditedTodo(null);
-    }
   }
 
   return (
     <>
       <NewToDoForm onSubmit={addTodo} />
       <h1 className="header">Todo List</h1>
-      <TodoList
-        todos={todos}
-        toggleTodo={toggleTodo}
-        deleteTodo={handleDeleteTodo}
-        onEdit={handleEdit}
-      />
-      {editedTodo && (
-        <div className="edit-form">
-          <input
-            type="text"
-            value={editedTodo.title}
-            onChange={(e) =>
-              setEditedTodo({ ...editedTodo, title: e.target.value })
-            }
-          />
-          <div className="edit-buttons">
-            <button
-              onClick={() => handleSaveEdit(editedTodo.title)}
-              className="btn btn-save"
-            >
-              Save
-            </button>
-            <button onClick={handleCancelEdit} className="btn btn-cancel">
-              Cancel
-            </button>
-          </div>
-        </div>
-      )}
+      <TodoList todos={todos} toggleTodo={toggleTodo} deleteTodo={deleteTodo} />
     </>
   );
 }
