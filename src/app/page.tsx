@@ -24,7 +24,7 @@ function Home() {
         ) as Promise<{ id: string; task: string; state: boolean }[]>
     )
   );
-  function toggle() {
+  function toggleTodo() {
     return "checked";
   }
 
@@ -37,11 +37,11 @@ function Home() {
     location.reload();
   }
 
-  // Fix this pls Nemidoonam lazeme inja bashe ya na :/ ?
-  async function handleEdit(taskId: string, newTitle: string) {}
+  // work on this !
+  async function handleSaveEdit(taskId: string, newTitle: string) {}
 
   return (
-    <main>
+    <main className="list">
       <App />
       <ul>
         {data.map((showtasks) => (
@@ -50,22 +50,24 @@ function Home() {
               <input
                 type="checkbox"
                 checked={showtasks.state}
-                onChange={toggle}
+                onChange={toggleTodo}
               />
               <span className="text">{showtasks.task}</span>
             </label>
-            <button
-              className="btn btn-danger"
-              onClick={() => deleteTask(showtasks.id)}
-            >
-              <span className="fas fa-trash">DEL</span>
-            </button>
-            <button
-              className="btn btn-danger"
-              onClick={() => handleEdit(showtasks.id, showtasks.task)}
-            >
-              <span className="fas fa-edit">DEL</span>
-            </button>
+            <div className="Buttons">
+              <button
+                className="btn btn-danger"
+                onClick={() => deleteTask(showtasks.id)}
+              >
+                <span className="fas fa-trash">DEL</span>
+              </button>
+              <button
+                className="btn"
+                onClick={() => handleSaveEdit(showtasks.id, showtasks.task)}
+              >
+                <span className="fas fa-edit">EDIT</span>
+              </button>
+            </div>
           </li>
         ))}
       </ul>

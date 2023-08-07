@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import "./style.css";
 import { NewToDoForm } from "./NewToDoForm";
+import { TodoEditForm } from "./TodoEditForm";
 import { TodoList } from "./TodoList";
 
 export default function App(): JSX.Element {
@@ -48,11 +49,33 @@ export default function App(): JSX.Element {
     setTodos((currentTodos) => currentTodos.filter((todo) => todo.id !== id));
   }
 
+  function handleEditTodo(id: string): void {
+    const todoToEdit = todos.find((todo) => todo.id === id);
+    if (todoToEdit) {
+      setEditedTodo(todoToEdit);
+    }
+  }
+
+  function handleSaveEdit(id: string, newTitle: string): void {
+    setTodos((currentTodos) =>
+      currentTodos.map((todo) =>
+        todo.id === id ? { ...todo, title: newTitle } : todo
+      )
+    );
+    setEditedTodo(null);
+  }
+
   return (
     <>
       <NewToDoForm onSubmit={addTodo} />
       <h1 className="header">Todo List</h1>
-      <TodoList todos={todos} toggleTodo={toggleTodo} deleteTodo={deleteTodo} />
+      <TodoList
+        todos={todos}
+        toggleTodo={toggleTodo}
+        deleteTodo={deleteTodo}
+        onEdit={handleEditTodo}
+        onSaveEdit={handleSaveEdit}
+      />
     </>
   );
 }

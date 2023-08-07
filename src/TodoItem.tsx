@@ -1,4 +1,6 @@
-import { ChangeEvent, useState } from "react";
+import { useState, ChangeEvent } from "react";
+import { TodoEditForm } from "./TodoEditForm";
+
 interface TodoItemProps {
   completed: boolean;
   id: string;
@@ -6,9 +8,9 @@ interface TodoItemProps {
   toggleTodo: (id: string, completed: boolean) => void;
   deleteTodo: (id: string) => void;
   onEdit: (id: string) => void;
+  onSaveEdit: (id: string, newTitle: string) => void; // Add onSaveEdit prop
 }
-const [editedTodo, setEditedTodo] = useState<any | null>(null);
-const [todos, setTodos] = useState<any[]>([]);
+
 export function TodoItem({
   completed,
   id,
@@ -16,7 +18,10 @@ export function TodoItem({
   toggleTodo,
   deleteTodo,
   onEdit,
+  onSaveEdit,
 }: TodoItemProps): JSX.Element {
+  const [editedTodo, setEditedTodo] = useState<any | null>(null);
+
   function handleToggleTodo(e: ChangeEvent<HTMLInputElement>): void {
     toggleTodo(id, e.target.checked);
   }
@@ -26,7 +31,8 @@ export function TodoItem({
   }
 
   function handleEditTodo(): void {
-    onEdit(id); // Call the onEdit function with the todo id
+    onEdit(id);
+    setEditedTodo({ id, title });
   }
 
   function handleCancelEdit(): void {
@@ -34,41 +40,19 @@ export function TodoItem({
   }
 
   function handleSaveEdit(newTitle: string): void {
-    if (editedTodo) {
-      setTodos((currentTodos) =>
-        currentTodos.map((todo) =>
-          todo.id === editedTodo.id ? { ...todo, title: newTitle } : todo
-        )
-      );
-      setEditedTodo(null);
-    }
+    onSaveEdit(id, newTitle); // Call the onSaveEdit function with the task id and new title
+    setEditedTodo(null);
   }
 
   return (
     <li>
-      {editedTodo && editedTodo.id === id ? ( // Check if the todo is being edited
-        <div className="edit-form">
-          <input
-            type="text"
-            value={editedTodo.title}
-            onChange={(e) =>
-              setEditedTodo({ ...editedTodo, title: e.target.value })
-            }
-          />
-          <div className="edit-buttons">
-            <button
-              onClick={() => handleSaveEdit(editedTodo.title)}
-              className="btn btn-save"
-            >
-              Save
-            </button>
-            <button onClick={handleCancelEdit} className="btn btn-cancel">
-              Cancel
-            </button>
-          </div>
-        </div>
+      {editedTodo && editedTodo.id === id ? (
+        <TodoEditForm
+          editedTodo={editedTodo}
+          onSaveEdit={handleSaveEdit} // Pass the handleSaveEdit function
+          onCancelEdit={handleCancelEdit}
+        />
       ) : (
-        // Display normal todo view if not editing
         <>
           <label>
             <input
