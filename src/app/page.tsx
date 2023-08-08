@@ -1,7 +1,7 @@
-"use client";
 import { use, useEffect, useState } from "react";
 import App from "./components/App";
 import dynamic from "next/dynamic";
+import { TodoEditForm } from "@/TodoEditForm";
 
 const fetchMap = new Map<string, Promise<any>>();
 function queryClient<QueryResult>(
@@ -24,6 +24,10 @@ function Home() {
         ) as Promise<{ id: string; task: string; state: boolean }[]>
     )
   );
+
+  const [editedTodo, setEditedTodo] = useState<any | null>(null);
+  const [editedTitle, setEditedTitle] = useState("");
+
   function toggleTodo() {
     return "checked";
   }
@@ -39,6 +43,16 @@ function Home() {
 
   // work on this !
   async function handleSaveEdit(taskId: string, newTitle: string) {}
+
+  function handleEdit(todoId: string, todoTitle: string) {
+    setEditedTodo({ id: todoId, title: todoTitle });
+    setEditedTitle(todoTitle);
+  }
+
+  function handleCancelEdit() {
+    setEditedTodo(null);
+    setEditedTitle("");
+  }
 
   return (
     <main className="list">
@@ -63,7 +77,7 @@ function Home() {
               </button>
               <button
                 className="btn"
-                onClick={() => handleSaveEdit(showtasks.id, showtasks.task)}
+                onClick={() => handleEdit(showtasks.id, showtasks.task)}
               >
                 <span className="fas fa-edit">EDIT</span>
               </button>
@@ -71,6 +85,13 @@ function Home() {
           </li>
         ))}
       </ul>
+      {editedTodo && (
+        <TodoEditForm
+          editedTodo={editedTodo}
+          onSaveEdit={(newTitle) => handleSaveEdit(editedTodo.id, newTitle)}
+          onCancelEdit={handleCancelEdit}
+        />
+      )}
     </main>
   );
 }
