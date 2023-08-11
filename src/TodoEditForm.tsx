@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 interface TodoEditFormProps {
   editedTodo: any;
-  onSaveEdit: (newTitle: string) => void;
+  onSaveEdit: (id: string, newTitle: string) => void;
   onCancelEdit: () => void;
 }
 
@@ -18,14 +18,17 @@ export function TodoEditForm({
   }
 
   function handleSave() {
-    onSaveEdit(editedTitle);
+    onSaveEdit(editedTodo.id, editedTitle);
   }
 
   return (
     <div className="edit-form">
       <input type="text" value={editedTitle} onChange={handleInputChange} />
       <div className="edit-buttons">
-        <button onClick={handleSave} className="btn btn-save">
+        <button
+          onClick={() => onSaveEdit(editedTodo.id, editedTitle)}
+          className="btn btn-save"
+        >
           Save
         </button>
         <button onClick={onCancelEdit} className="btn btn-cancel">

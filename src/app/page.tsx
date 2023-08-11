@@ -27,6 +27,7 @@ function Home() {
 
   const [editedTodo, setEditedTodo] = useState<any | null>(null);
   const [editedTitle, setEditedTitle] = useState("");
+  const [todos, setTodos] = useState<any[]>([]);
 
   function toggleTodo() {
     return "checked";
@@ -42,7 +43,21 @@ function Home() {
   }
 
   // work on this !
-  async function handleSaveEdit(taskId: string, newTitle: string) {}
+  async function handleSaveEdit(id: string, newTitle: string) {
+    console.log("Save edit:", id, newTitle);
+
+    // if (response.ok)
+    // age repsone ok bod in Logic anjam she
+    setTodos((currentTodos) =>
+      currentTodos.map((todo) =>
+        todo.id === id ? { ...todo, title: newTitle } : todo
+      )
+    );
+
+    // inam editedTodo o editedTitle reset mikone
+    setEditedTodo(null);
+    setEditedTitle("");
+  }
 
   function handleEdit(todoId: string, todoTitle: string) {
     setEditedTodo({ id: todoId, title: todoTitle });
@@ -88,7 +103,7 @@ function Home() {
       {editedTodo && (
         <TodoEditForm
           editedTodo={editedTodo}
-          onSaveEdit={(newTitle) => handleSaveEdit(editedTodo.id, newTitle)}
+          onSaveEdit={handleSaveEdit}
           onCancelEdit={handleCancelEdit}
         />
       )}

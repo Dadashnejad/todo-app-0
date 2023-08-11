@@ -49,7 +49,7 @@ export function TodoItem({
       {editedTodo && editedTodo.id === id ? (
         <TodoEditForm
           editedTodo={editedTodo}
-          onSaveEdit={handleSaveEdit} // Pass the handleSaveEdit function
+          onSaveEdit={onSaveEdit}
           onCancelEdit={handleCancelEdit}
         />
       ) : (

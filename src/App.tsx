@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import "./style.css";
 import { NewToDoForm } from "./NewToDoForm";
 import { TodoEditForm } from "./TodoEditForm";
@@ -76,6 +76,13 @@ export default function App(): JSX.Element {
         onEdit={handleEditTodo}
         onSaveEdit={handleSaveEdit}
       />
+      {editedTodo && (
+        <TodoEditForm
+          editedTodo={editedTodo}
+          onSaveEdit={handleSaveEdit}
+          onCancelEdit={() => setEditedTodo(null)}
+        />
+      )}
     </>
   );
 }
