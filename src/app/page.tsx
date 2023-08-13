@@ -1,7 +1,9 @@
+"use client";
 import { use, useEffect, useState } from "react";
 import App from "./components/App";
 import dynamic from "next/dynamic";
-import { TodoEditForm } from "@/TodoEditForm";
+import "./globals.css";
+import { EditTodoForm } from "@/EditToDoForm";
 
 const fetchMap = new Map<string, Promise<any>>();
 function queryClient<QueryResult>(
@@ -28,8 +30,10 @@ function Home() {
   const [editedTodo, setEditedTodo] = useState<any | null>(null);
   const [editedTitle, setEditedTitle] = useState("");
   const [todos, setTodos] = useState<any[]>([]);
+  const [editingTaskId, setEditingTaskId] = useState<string | null>(null);
+  const [isEditing, setIsEditing] = useState(false);
 
-  function toggleTodo() {
+  function toggle() {
     return "checked";
   }
 
@@ -42,44 +46,33 @@ function Home() {
     location.reload();
   }
 
-  // work on this !
-  async function handleSaveEdit(id: string, newTitle: string) {
-    console.log("Save edit:", id, newTitle);
+  async function handleSaveEdit(taskId: string, newTitle: string) {}
 
-    // if (response.ok)
-    // age repsone ok bod in Logic anjam she
-    setTodos((currentTodos) =>
-      currentTodos.map((todo) =>
-        todo.id === id ? { ...todo, title: newTitle } : todo
-      )
-    );
+  const handleEditTodo = (taskId: string, initialTitle: string) => {
+    setIsEditing(true);
+    setEditedTodo({
+      taskId: taskId,
+      initialTitle: initialTitle,
+    });
+    setEditedTitle(initialTitle);
+    setEditingTaskId(taskId); // Set the editing task ID to the current task being edited
+  };
 
-    // inam editedTodo o editedTitle reset mikone
+  const handleCancel = () => {
+    setIsEditing(false);
     setEditedTodo(null);
-    setEditedTitle("");
-  }
-
-  function handleEdit(todoId: string, todoTitle: string) {
-    setEditedTodo({ id: todoId, title: todoTitle });
-    setEditedTitle(todoTitle);
-  }
-
-  function handleCancelEdit() {
-    setEditedTodo(null);
-    setEditedTitle("");
-  }
-
+  };
   return (
     <main className="list">
       <App />
-      <ul>
+      <ul className="Todo">
         {data.map((showtasks) => (
           <li key={showtasks.id}>
             <label>
               <input
                 type="checkbox"
                 checked={showtasks.state}
-                onChange={toggleTodo}
+                onChange={toggle}
               />
               <span className="text">{showtasks.task}</span>
             </label>
@@ -92,7 +85,7 @@ function Home() {
               </button>
               <button
                 className="btn"
-                onClick={() => handleEdit(showtasks.id, showtasks.task)}
+                onClick={() => handleEditTodo(showtasks.id, showtasks.task)}
               >
                 <span className="fas fa-edit">EDIT</span>
               </button>
@@ -101,10 +94,11 @@ function Home() {
         ))}
       </ul>
       {editedTodo && (
-        <TodoEditForm
-          editedTodo={editedTodo}
-          onSaveEdit={handleSaveEdit}
-          onCancelEdit={handleCancelEdit}
+        <EditTodoForm
+          taskId={editedTodo.taskId}
+          initialTitle={editedTodo.initialTitle}
+          onSave={handleSaveEdit}
+          onCancel={handleCancel}
         />
       )}
     </main>

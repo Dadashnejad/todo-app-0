@@ -1,5 +1,5 @@
-import { useState, ChangeEvent } from "react";
-import { TodoEditForm } from "./TodoEditForm";
+import React, { useState, ChangeEvent } from "react";
+import { EditTodoForm } from "./EditToDoForm";
 
 interface TodoItemProps {
   completed: boolean;
@@ -7,8 +7,7 @@ interface TodoItemProps {
   title: string;
   toggleTodo: (id: string, completed: boolean) => void;
   deleteTodo: (id: string) => void;
-  onEdit: (id: string) => void;
-  onSaveEdit: (id: string, newTitle: string) => void; // Add onSaveEdit prop
+  onEdit: (id: string, newTitle: string) => void;
 }
 
 export function TodoItem({
@@ -18,39 +17,41 @@ export function TodoItem({
   toggleTodo,
   deleteTodo,
   onEdit,
-  onSaveEdit,
 }: TodoItemProps): JSX.Element {
-  const [editedTodo, setEditedTodo] = useState<any | null>(null);
+  const [isEditing, setIsEditing] = useState(false);
+  const [editedTitle, setEditedTitle] = useState(title);
 
-  function handleToggleTodo(e: ChangeEvent<HTMLInputElement>): void {
-    toggleTodo(id, e.target.checked);
-  }
+  const handleToggleTodo = (e: ChangeEvent<HTMLInputElement>) => {
+    const newCompleted = e.target.checked;
+    toggleTodo(id, newCompleted);
+  };
 
-  function handleDeleteTodo(): void {
+  const handleEdit = () => {
+    setIsEditing(true);
+  };
+
+  const handleSaveEdit = (newTitle: string) => {
+    onEdit(id, newTitle);
+    setIsEditing(false);
+    setEditedTitle(newTitle);
+  };
+
+  const handleCancelEdit = () => {
+    setIsEditing(false);
+  };
+
+  const handleDeleteTodo = () => {
     deleteTodo(id);
-  }
-
-  function handleEditTodo(): void {
-    onEdit(id);
-    setEditedTodo({ id, title });
-  }
-
-  function handleCancelEdit(): void {
-    setEditedTodo(null);
-  }
-
-  function handleSaveEdit(newTitle: string): void {
-    onSaveEdit(id, newTitle); // Call the onSaveEdit function with the task id and new title
-    setEditedTodo(null);
-  }
+  };
 
   return (
     <li>
-      {editedTodo && editedTodo.id === id ? (
-        <TodoEditForm
-          editedTodo={editedTodo}
-          onSaveEdit={onSaveEdit}
-          onCancelEdit={handleCancelEdit}
+      {isEditing ? (
+        <EditTodoForm
+          taskId={id}
+          initialTitle={editedTitle}
+          onSave={handleSaveEdit}
+          onCancel={handleCancelEdit}
         />
       ) : (
         <>
@@ -60,10 +61,10 @@ export function TodoItem({
               checked={completed}
               onChange={handleToggleTodo}
             />
-            <span className="text">{title}</span>
+            <span className="text">{editedTitle}</span>
           </label>
-          <button onClick={handleEditTodo} className="btn btn-edit">
-            <span className="fas fa-edit"></span>
+          <button onClick={handleEdit} className="btn btn-edit">
+            Edit
           </button>
           <button onClick={handleDeleteTodo} className="btn btn-danger">
             <span className="fas fa-trash"></span>

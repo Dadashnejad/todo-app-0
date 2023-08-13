@@ -28,11 +28,10 @@ body {
   gap: 12px;
 }
 
-/* Adjust the styles for edit mode */
 .edit-form {
   display: flex;
   flex-direction: column;
-  gap: 12px; /* Increased the gap between input and buttons in edit mode */
+  gap: 12px;
 }
 
 .edit-form input {
@@ -41,7 +40,7 @@ body {
   border: 1px solid rgb(0, 136, 204);
   background: rgb(0, 102, 153);
   border-radius: 4px;
-  padding: 8px; /* Increased padding for better visibility */
+  padding: 8px;
   color: rgb(204, 238, 255);
 }
 
@@ -50,7 +49,7 @@ body {
   border: 1px solid rgb(43, 180, 248);
   color: rgb(37, 37, 37);
 
-  padding: 8px 12px; /* Increased padding for better visibility */
+  padding: 8px 12px;
   border-radius: 4px;
   cursor: pointer;
   outline: none;

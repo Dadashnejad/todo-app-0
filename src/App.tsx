@@ -1,13 +1,15 @@
-import React, { useState, useEffect } from "react";
-import "./style.css";
+import { useState, useEffect } from "react";
+import "./app/globals.css";
 import { NewToDoForm } from "./NewToDoForm";
-import { TodoEditForm } from "./TodoEditForm";
+import { TodoItem } from "./TodoItem";
 import { TodoList } from "./TodoList";
 
 export default function App(): JSX.Element {
   const [todos, setTodos] = useState<any[]>([]);
   const [editedTodo, setEditedTodo] = useState<any | null>(null);
-  const [tabTitle] = useState<string>(document.title);
+  const [tabTitle, setTabTitle] = useState<string>(document.title);
+  const [editingTaskId, setEditingTaskId] = useState<string | null>(null);
+  const [editedTitle, setEditedTitle] = useState();
 
   useEffect(() => {
     const handleBlur = () => {
@@ -34,36 +36,25 @@ export default function App(): JSX.Element {
     ]);
   }
 
-  function toggleTodo(id: string, completed: boolean): void {
+  const handleToggleTodo = (id: string, completed: boolean) => {
     setTodos((currentTodos) =>
-      currentTodos.map((todo) => {
-        if (todo.id === id) {
-          return { ...todo, completed };
-        }
-        return todo;
-      })
+      currentTodos.map((todo) =>
+        todo.id === id ? { ...todo, completed: completed } : todo
+      )
     );
-  }
+  };
 
   function deleteTodo(id: string): void {
     setTodos((currentTodos) => currentTodos.filter((todo) => todo.id !== id));
   }
 
-  function handleEditTodo(id: string): void {
-    const todoToEdit = todos.find((todo) => todo.id === id);
-    if (todoToEdit) {
-      setEditedTodo(todoToEdit);
+  const onEdit = (taskId: string) => {
+    const editedTask = todos.find((todo) => todo.id === taskId);
+    if (editedTask) {
+      setEditingTaskId(taskId);
+      setEditedTitle(editedTask.title);
     }
-  }
-
-  function handleSaveEdit(id: string, newTitle: string): void {
-    setTodos((currentTodos) =>
-      currentTodos.map((todo) =>
-        todo.id === id ? { ...todo, title: newTitle } : todo
-      )
-    );
-    setEditedTodo(null);
-  }
+  };
 
   return (
     <>
@@ -71,18 +62,10 @@ export default function App(): JSX.Element {
       <h1 className="header">Todo List</h1>
       <TodoList
         todos={todos}
-        toggleTodo={toggleTodo}
+        toggleTodo={handleToggleTodo}
         deleteTodo={deleteTodo}
-        onEdit={handleEditTodo}
-        onSaveEdit={handleSaveEdit}
+        onEdit={onEdit}
       />
-      {editedTodo && (
-        <TodoEditForm
-          editedTodo={editedTodo}
-          onSaveEdit={handleSaveEdit}
-          onCancelEdit={() => setEditedTodo(null)}
-        />
-      )}
     </>
   );
 }
