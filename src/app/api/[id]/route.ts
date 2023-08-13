@@ -2,8 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import prisma from "../../../../prisma/client";
 
 export async function DELETE(request: NextRequest, { params }: any){
-
-    console.log("###################################################################", params.id)
+    console.log(params.id)
     const deleteTask = await prisma.tasktd.delete({
         where: {
             id: params.id,
@@ -14,21 +13,19 @@ export async function DELETE(request: NextRequest, { params }: any){
   
 }
 
-// get tasks from taskdb and show on page.tsx
-// import { NextResponse } from "next/server";
-// import prisma from "../../../../prisma/client";
 
-// export async function GET(props){
-//     try{
-//         const data = await prisma.tasktd.findUnique({
-//             where:{
-//                 id: id
-//             }
-//         })
+export async function PUT(request: NextRequest, { params }: any) {
+    const updateData = await request.json();    
+    console.log("#####", updateData.task)
 
-//         return NextResponse.json(data)
-
-//     }catch(error){
-//         return new Response(JSON.stringify({ ok: "not okay" }));
-//     }
-// }
+    const updateTask = await prisma.tasktd.update({
+        where: {
+            id: params.id
+        },
+        data: {
+            task: updateData.task
+        },
+    })
+    const res = NextResponse.json({ message: "UPDATE" }, { status: 201 });
+    return console.log(res.body);
+  }

@@ -1,5 +1,5 @@
 import { useState, ChangeEvent } from "react";
-import { TodoEditForm } from "./TodoEditForm";
+import { TodoEditForm } from "./app/components/TodoEditForm";
 
 interface TodoItemProps {
   completed: boolean;

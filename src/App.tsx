@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import "./style.css";
 import { NewToDoForm } from "./NewToDoForm";
-import { TodoEditForm } from "./TodoEditForm";
+import { TodoEditForm } from "./app/components/TodoEditForm";
 import { TodoList } from "./TodoList";
 
 export default function App(): JSX.Element {

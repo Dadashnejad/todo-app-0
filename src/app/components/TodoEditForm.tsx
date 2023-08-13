@@ -21,11 +21,23 @@ export function TodoEditForm({
     onSaveEdit(editedTitle);
   }
 
+  async function handleSaveEdit(taskId: string) {
+    const editTask = JSON.stringify({editedTitle})
+    console.log(editTask)
+    const response = await fetch(`http://localhost:3000/api/${taskId}`, {
+      method: "PUT",
+      headers:{
+        'Content-Type': 'application/json'
+      },
+      body: editTask,
+    });
+  }
+
   return (
     <div className="edit-form">
       <input type="text" value={editedTitle} onChange={handleInputChange} />
       <div className="edit-buttons">
-        <button onClick={handleSave} className="btn btn-save">
+        <button type="submit" onClick={handleSave} className="btn btn-save">
           Save
         </button>
         <button onClick={onCancelEdit} className="btn btn-cancel">
