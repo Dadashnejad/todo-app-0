@@ -43,7 +43,7 @@ function Home() {
   }
 
   async function handleSaveEdit(taskId: string, newTitle: string) {
-    const editTask = JSON.stringify({newTitle})
+    const editTask = JSON.stringify({"task": newTitle})
     console.log(editTask)
     const response = await fetch(`http://localhost:3000/api/${taskId}`, {
       method: "PUT",
