@@ -96,3 +96,8 @@ Restful API
 - CSS: Styling the app's appearance.
 - PosgresSQL
 - tailwind
+
+## Developers
+
+- Majid Ayoubi Raad | مجید ایوبی راد
+- Amirhossein Dadashnejad | امیرحسین داداش نژاد
