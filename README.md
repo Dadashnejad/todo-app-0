@@ -40,6 +40,7 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 - React
 - Next.js
 - TypeScript
+
   استفاده شده است که در آن میتوانید برنامه های که در آن ثبت کردید
   رو ادیت ، حذف یا اضافه کنید
 
