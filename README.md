@@ -83,7 +83,7 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 اپلیکیشن از یک
 Restful API
-ساده استفاده شده تا با تسک ها تعامل برقرار کند
+ساده استفاده کرده تا با تسک ها تعامل برقرار کند
 
 - `GET /api/getTasks`: لیست تسک هارو میگیرد
 - `DELETE /api/:taskId`: یک تسک رو پاک میکنه
