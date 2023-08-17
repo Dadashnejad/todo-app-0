@@ -2,6 +2,8 @@
 import { use, useEffect, useState } from "react";
 import App from "./components/App";
 import dynamic from "next/dynamic";
+import "./globals.css";
+import { EditTodoForm } from "@/EditToDoForm";
 
 const fetchMap = new Map<string, Promise<any>>();
 function queryClient<QueryResult>(
@@ -24,7 +26,18 @@ function Home() {
         ) as Promise<{ id: string; task: string; state: boolean }[]>
     )
   );
+<<<<<<< HEAD
   function toggleTodo() {
+=======
+
+  const [editedTodo, setEditedTodo] = useState<any | null>(null);
+  const [editedTitle, setEditedTitle] = useState("");
+  const [todos, setTodos] = useState<any[]>([]);
+  const [editingTaskId, setEditingTaskId] = useState<string | null>(null);
+  const [isEditing, setIsEditing] = useState(false);
+
+  function toggle() {
+>>>>>>> TodoWithEdit
     return "checked";
   }
 
@@ -37,13 +50,32 @@ function Home() {
     location.reload();
   }
 
+<<<<<<< HEAD
   // work on this !
   async function handleSaveEdit(taskId: string, newTitle: string) {}
 
+=======
+  async function handleSaveEdit(taskId: string, newTitle: string) {}
+
+  const handleEditTodo = (taskId: string, initialTitle: string) => {
+    setIsEditing(true);
+    setEditedTodo({
+      taskId: taskId,
+      initialTitle: initialTitle,
+    });
+    setEditedTitle(initialTitle);
+    setEditingTaskId(taskId); // Set the editing task ID to the current task being edited
+  };
+
+  const handleCancel = () => {
+    setIsEditing(false);
+    setEditedTodo(null);
+  };
+>>>>>>> TodoWithEdit
   return (
     <main className="list">
       <App />
-      <ul>
+      <ul className="Todo">
         {data.map((showtasks) => (
           <li key={showtasks.id}>
             <label>
@@ -63,7 +95,11 @@ function Home() {
               </button>
               <button
                 className="btn"
+<<<<<<< HEAD
                 onClick={() => handleSaveEdit(showtasks.id, showtasks.task)}
+=======
+                onClick={() => handleEditTodo(showtasks.id, showtasks.task)}
+>>>>>>> TodoWithEdit
               >
                 <span className="fas fa-edit">EDIT</span>
               </button>
@@ -71,7 +107,19 @@ function Home() {
           </li>
         ))}
       </ul>
+      {editedTodo && (
+        <EditTodoForm
+          taskId={editedTodo.taskId}
+          initialTitle={editedTodo.initialTitle}
+          onSave={handleSaveEdit}
+          onCancel={handleCancel}
+        />
+      )}
     </main>
   );
 }
+<<<<<<< HEAD
 export default dynamic(() => Promise.resolve(Home), { ssr: false });
+=======
+export default dynamic(() => Promise.resolve(Home), { ssr: false });
+>>>>>>> TodoWithEdit
