@@ -26,20 +26,28 @@ function Home() {
         ) as Promise<{ id: string; task: string; state: boolean }[]>
     )
   );
-<<<<<<< HEAD
-  function toggleTodo() {
-=======
 
   const [editedTodo, setEditedTodo] = useState<any | null>(null);
   const [editedTitle, setEditedTitle] = useState("");
   const [todos, setTodos] = useState<any[]>([]);
   const [editingTaskId, setEditingTaskId] = useState<string | null>(null);
   const [isEditing, setIsEditing] = useState(false);
+  const [selectedTodoIds, setSelectedTodoIds] = useState<string[]>([]);
 
-  function toggle() {
->>>>>>> TodoWithEdit
-    return "checked";
-  }
+  const toggleTodo = (id: string, completed: boolean) => {
+    if (selectedTodoIds.includes(id)) {
+      setSelectedTodoIds((prevIds) =>
+        prevIds.filter((todoId) => todoId !== id)
+      );
+    } else {
+      setSelectedTodoIds((prevIds) => [...prevIds, id]);
+    }
+    setTodos((prevTodos) =>
+      prevTodos.map((todo) =>
+        todo.id === id ? { ...todo, completed: !completed } : todo
+      )
+    );
+  };
 
   async function deleteTask(taskId: string) {
     const response = await fetch(`http://localhost:3000/api/${taskId}`, {
@@ -50,11 +58,6 @@ function Home() {
     location.reload();
   }
 
-<<<<<<< HEAD
-  // work on this !
-  async function handleSaveEdit(taskId: string, newTitle: string) {}
-
-=======
   async function handleSaveEdit(taskId: string, newTitle: string) {}
 
   const handleEditTodo = (taskId: string, initialTitle: string) => {
@@ -64,29 +67,30 @@ function Home() {
       initialTitle: initialTitle,
     });
     setEditedTitle(initialTitle);
-    setEditingTaskId(taskId); // Set the editing task ID to the current task being edited
+    setEditingTaskId(taskId);
   };
 
   const handleCancel = () => {
     setIsEditing(false);
     setEditedTodo(null);
   };
->>>>>>> TodoWithEdit
   return (
     <main className="list">
       <App />
       <ul className="Todo">
         {data.map((showtasks) => (
-          <li key={showtasks.id}>
-            <label>
-              <input
-                type="checkbox"
-                checked={showtasks.state}
-                onChange={toggleTodo}
-              />
-              <span className="text">{showtasks.task}</span>
-            </label>
+          <li
+            key={showtasks.id}
+            className={selectedTodoIds.includes(showtasks.id) ? "selected" : ""}
+          >
+            <span className="text">{showtasks.task}</span>
             <div className="Buttons">
+              <button
+                className="btn btn-toggle"
+                onClick={() => toggleTodo(showtasks.id, showtasks.state)}
+              >
+                &#x2713;
+              </button>
               <button
                 className="btn btn-danger"
                 onClick={() => deleteTask(showtasks.id)}
@@ -95,11 +99,7 @@ function Home() {
               </button>
               <button
                 className="btn"
-<<<<<<< HEAD
-                onClick={() => handleSaveEdit(showtasks.id, showtasks.task)}
-=======
                 onClick={() => handleEditTodo(showtasks.id, showtasks.task)}
->>>>>>> TodoWithEdit
               >
                 <span className="fas fa-edit">EDIT</span>
               </button>
@@ -118,8 +118,4 @@ function Home() {
     </main>
   );
 }
-<<<<<<< HEAD
 export default dynamic(() => Promise.resolve(Home), { ssr: false });
-=======
-export default dynamic(() => Promise.resolve(Home), { ssr: false });
->>>>>>> TodoWithEdit

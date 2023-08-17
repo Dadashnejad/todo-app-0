@@ -3,8 +3,8 @@
 @tailwind utilities;
 
 * {
-  font-family: Arial, Helvetica, sans-serif;
   box-sizing: border-box;
+  font-family: "Handjet", cursive;
 }
 
 body {
@@ -91,11 +91,13 @@ body {
   cursor: pointer;
   outline: none;
   transition: 0.4s;
+  align-items: center;
 }
 
 .btn:hover,
 .btn:focus-visible {
-  background: rgba(53, 233, 47, 0.877);
+  background: rgba(20, 83, 199, 0.877);
+  border: 1px solid rgba(20, 83, 199, 0.877);
   color: rgb(253, 253, 253);
 }
 
@@ -134,6 +136,7 @@ body {
   padding: 0;
   margin-left: 16px;
   list-style: none;
+  font-family: "Oswald", sans-serif;
 }
 
 .list li:has(input:checked) label .text {
@@ -158,6 +161,7 @@ body {
   gap: 8px;
   align-items: center;
   justify-content: space-between;
+  font-family: "Oswald", sans-serif;
 }
 
 .list li label {
@@ -207,4 +211,32 @@ body {
 
 .list li:has(input:checked) label:hover::before {
   background: rgb(0, 102, 153);
+}
+
+.selected {
+  opacity: 0.3; /* Adjust the opacity as needed */
+  color: rgb(50, 165, 50);
+}
+
+.btn-toggle {
+  background-color: rgb(42, 211, 42);
+  border: rgb(42, 211, 42);
+  width: 30px;
+  height: 30px;
+}
+
+.btn-toggle:hover {
+  background-color: rgb(33, 170, 33);
+  border: rgb(33, 170, 33);
+  width: 30px;
+  height: 30px;
+}
+
+.btn-danger {
+  margin-left: 2px;
+  margin-right: 2px;
+}
+
+.btn-add {
+  background-color: rgb(46, 153, 196);
 }
