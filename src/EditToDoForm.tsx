@@ -34,7 +34,7 @@ export function EditTodoForm({
         <button onClick={handleSave} className="btn btn-save">
           Save
         </button>
-        <button onClick={handleCancel} className="btn btn-cancel">
+        <button onClick={handleCancel} className="btn btn-danger">
           Cancel
         </button>
       </div>

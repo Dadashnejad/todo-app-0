@@ -161,7 +161,7 @@ body {
   gap: 8px;
   align-items: center;
   justify-content: space-between;
-  font-family: "Oswald", sans-serif;
+  margin-top: 4px;
 }
 
 .list li label {
@@ -239,4 +239,10 @@ body {
 
 .btn-add {
   background-color: rgb(46, 153, 196);
+}
+
+.Buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
