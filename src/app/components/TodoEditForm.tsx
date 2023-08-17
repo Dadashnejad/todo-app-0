@@ -22,12 +22,12 @@ export function TodoEditForm({
   }
 
   async function handleSaveEdit(taskId: string) {
-    const editTask = JSON.stringify({editedTitle})
-    console.log(editTask)
+    const editTask = JSON.stringify({ editedTitle });
+    console.log(editTask);
     const response = await fetch(`http://localhost:3000/api/${taskId}`, {
       method: "PUT",
-      headers:{
-        'Content-Type': 'application/json'
+      headers: {
+        "Content-Type": "application/json",
       },
       body: editTask,
     });

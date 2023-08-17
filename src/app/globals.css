@@ -8,7 +8,7 @@
 }
 
 button {
-  margin: 3px 7px 3px 7px;
+  margin: 5px 3px 5px 5px;
 }
 
 body {
@@ -32,11 +32,10 @@ body {
   gap: 12px;
 }
 
-/* Adjust the styles for edit mode */
 .edit-form {
   display: flex;
   flex-direction: column;
-  gap: 12px; /* Increased the gap between input and buttons in edit mode */
+  gap: 12px;
 }
 
 .edit-form input {
@@ -45,7 +44,7 @@ body {
   border: 1px solid rgb(0, 136, 204);
   background: rgb(0, 102, 153);
   border-radius: 4px;
-  padding: 8px; /* Increased padding for better visibility */
+  padding: 8px;
   color: rgb(204, 238, 255);
 }
 
@@ -54,7 +53,7 @@ body {
   border: 1px solid rgb(43, 180, 248);
   color: rgb(37, 37, 37);
 
-  padding: 8px 12px; /* Increased padding for better visibility */
+  padding: 8px 12px;
   border-radius: 4px;
   cursor: pointer;
   outline: none;
@@ -141,7 +140,7 @@ body {
   list-style: none;
 }
 
-.list li:has(input:checked) label .text {
+/* .list li:has(input:checked) label .text {
   text-decoration: line-through;
   margin-left: 8px;
   font-style: oblique;
@@ -150,7 +149,7 @@ body {
 .list li:has(input:checked) label {
   color: rgb(43, 167, 19);
   text-decoration: none;
-}
+} */
 
 .list {
   display: flex;
@@ -184,22 +183,6 @@ body {
   appearance: none;
   pointer-events: none;
   position: absolute;
-}
-
-.list li label::before {
-  content: "";
-  display: block;
-  width: 15px;
-  height: 15px;
-  background: rgb(212, 235, 247);
-  border-radius: 4px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.list li label:hover::before {
-  background: rgb(255, 255, 255);
 }
 
 .list li:has(input:checked) label::before {
