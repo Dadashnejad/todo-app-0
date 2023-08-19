@@ -26,7 +26,7 @@ export function NewToDoForm({ onSubmit }: NewToDoFormProps): JSX.Element {
         <label htmlFor="item">New Item</label>
         <input type="text" value={newItem} onChange={handleChange} id="item" />
       </div>
-      <button className="btn" disabled={!newItem}>
+      <button className="btn-add" disabled={!newItem}>
         Add to list
       </button>
     </form>

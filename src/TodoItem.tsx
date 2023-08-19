@@ -5,7 +5,6 @@ interface TodoItemProps {
   completed: boolean;
   id: string;
   title: string;
-  toggleTodo: (id: string, completed: boolean) => void;
   deleteTodo: (id: string) => void;
   onEdit: (id: string) => void;
   onSaveEdit: (id: string, newTitle: string) => void; // Add onSaveEdit prop
@@ -15,16 +14,11 @@ export function TodoItem({
   completed,
   id,
   title,
-  toggleTodo,
   deleteTodo,
   onEdit,
   onSaveEdit,
 }: TodoItemProps): JSX.Element {
   const [editedTodo, setEditedTodo] = useState<any | null>(null);
-
-  function handleToggleTodo(e: ChangeEvent<HTMLInputElement>): void {
-    toggleTodo(id, e.target.checked);
-  }
 
   function handleDeleteTodo(): void {
     deleteTodo(id);

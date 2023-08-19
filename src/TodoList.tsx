@@ -6,7 +6,6 @@ interface TodoListProps {
     title: string;
     completed: boolean;
   }[];
-  toggleTodo: (id: string, completed: boolean) => void;
   deleteTodo: (id: string) => void;
   onEdit: (id: string) => void;
   onSaveEdit: (id: string, newTitle: string) => void;
@@ -14,7 +13,6 @@ interface TodoListProps {
 
 export function TodoList({
   todos,
-  toggleTodo,
   deleteTodo,
   onEdit,
   onSaveEdit,
@@ -26,7 +24,6 @@ export function TodoList({
         <TodoItem
           key={todo.id}
           {...todo}
-          toggleTodo={toggleTodo}
           deleteTodo={deleteTodo}
           onEdit={onEdit}
           onSaveEdit={onSaveEdit}
