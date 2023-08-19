@@ -31,7 +31,6 @@ function Home() {
   const [editedTodo, setEditedTodo] = useState<any | null>(null);
   const [editedTitle, setEditedTitle] = useState("");
 
-
   async function deleteTask(taskId: string) {
     const response = await fetch(`http://localhost:3000/api/${taskId}`, {
       method: "DELETE",
@@ -62,8 +61,8 @@ function Home() {
     setEditedTodo(null);
     setEditedTitle("");
   }
-  
-  async function toggleTodo(taskId: string) {
+
+  async function toggleTodo(taskId: string, completed: boolean) {
     const response = await fetch(`http://localhost:3000/api/${taskId}`, {
       method: "DELETE",
     });
@@ -81,6 +80,12 @@ function Home() {
               <span className="text">{showtasks.task}</span>
             </label>
             <div className="Buttons">
+              <button
+                className="btn btn-toggle"
+                onClick={() => toggleTodo(showtasks.id, showtasks.state)}
+              >
+                &#x2713;
+              </button>
               <button
                 className="btn"
                 onClick={() => handleEdit(showtasks.id, showtasks.task)}

@@ -49,11 +49,6 @@ export function TodoItem({
       ) : (
         <>
           <label>
-            <input
-              type="checkbox"
-              checked={completed}
-              onChange={handleToggleTodo}
-            />
             <span className="text">{title}</span>
           </label>
           <button onClick={handleEditTodo} className="btn btn-edit">
