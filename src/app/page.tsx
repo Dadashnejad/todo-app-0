@@ -18,15 +18,19 @@ function queryClient<QueryResult>(
 }
 
 function Home() {
-  const data = use(
-    queryClient(
-      "getTasks",
-      () =>
-        fetch("http://localhost:3000/api/getTasks").then((res) =>
-          res.json()
-        ) as Promise<{ id: string; task: string; state: boolean }[]>
-    )
-  );
+  const [data, setData] = useState<
+    { id: string; task: string; state: boolean }[]
+  >([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch("http://localhost:3000/api/getTasks");
+      const result = await response.json();
+      setData(result);
+    };
+
+    fetchData();
+  }, []);
 
   const [editedTodo, setEditedTodo] = useState<any | null>(null);
   const [editedTitle, setEditedTitle] = useState("");
@@ -37,7 +41,7 @@ function Home() {
       method: "DELETE",
     });
     const data = await response;
-    location.reload();
+    setData((prevData) => prevData.filter((task) => task.id !== taskId));
   }
 
   async function handleSaveEdit(taskId: string, newTitle: string) {
@@ -50,7 +54,11 @@ function Home() {
       },
       body: editTask,
     });
-    location.reload();
+    setData((prevData) =>
+      prevData.map((task) =>
+        task.id === taskId ? { ...task, task: newTitle } : task
+      )
+    );
   }
 
   function handleEdit(todoId: string, todoTitle: string) {
@@ -64,19 +72,20 @@ function Home() {
   }
 
   async function toggleTodo(taskId: string, completed: boolean) {
-    const editTask = JSON.stringify({ state: completed });
+    const editTask = JSON.stringify({ state: !completed });
     console.log(editTask);
-    const response = await fetch(
-      `http://localhost:3000/api/taskdone/${taskId}`,
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: editTask,
-      }
+    await fetch(`http://localhost:3000/api/taskdone/${taskId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: editTask,
+    });
+    setData((prevData) =>
+      prevData.map((task) =>
+        task.id === taskId ? { ...task, state: !completed } : task
+      )
     );
-    location.reload();
   }
 
   return (
@@ -112,9 +121,9 @@ function Home() {
                       className="toggle-text"
                       size={20}
                       style={{ color: "black" }}
-                    /> // when task is done
+                    />
                   ) : (
-                    <BiCheck className="toggle-text" size={20} /> // Normal view
+                    <BiCheck className="toggle-text" size={20} />
                   )}
                 </span>
               </button>
