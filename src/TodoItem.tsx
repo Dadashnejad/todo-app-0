@@ -7,7 +7,7 @@ interface TodoItemProps {
   title: string;
   deleteTodo: (id: string) => void;
   onEdit: (id: string) => void;
-  onSaveEdit: (id: string, newTitle: string) => void; // Add onSaveEdit prop
+  onSaveEdit: (id: string, newTitle: string) => void;
 }
 
 export function TodoItem({

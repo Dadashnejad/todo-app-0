@@ -25,9 +25,11 @@ export function NewToDoForm() {
   return (
     <form onSubmit={submitTask}>
       <div className="form-row">
-        <label htmlFor="item">New Item</label>
+        <label className="block text-gray-700" htmlFor="item">
+          New Item
+        </label>
         <input
-          className="rounded-md"
+          className="rounded-md input-text"
           name="task"
           value={task}
           onChange={handleChange}

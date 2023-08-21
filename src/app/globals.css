@@ -142,17 +142,6 @@ body {
   font-family: "Oswald", sans-serif;
 }
 
-/* .list li:has(input:checked) label .text {
-  text-decoration: line-through;
-  margin-left: 8px;
-  font-style: oblique;
-}
-
-.list li:has(input:checked) label {
-  color: rgb(43, 167, 19);
-  text-decoration: none;
-} */
-
 .list {
   display: flex;
   flex-direction: column;
@@ -199,11 +188,6 @@ body {
   background: rgb(0, 102, 153);
 }
 
-.selected {
-  opacity: 0.3; /* Adjust the opacity as needed */
-  color: rgb(50, 165, 50);
-}
-
 .btn-toggle {
   background-color: rgb(42, 211, 42);
   border: rgb(42, 211, 42);
@@ -218,11 +202,29 @@ body {
   height: 30px;
 }
 
-.btn-danger {
-  margin-left: 2px;
-  margin-right: 2px;
-}
-
 .btn-add {
   background-color: rgb(46, 153, 196);
+}
+
+.completed {
+  text-decoration: line-through;
+}
+
+.toggle-text {
+  margin-left: -2px;
+}
+
+.btn-edit,
+.btn-danger {
+  width: 30px;
+  height: 30px;
+}
+
+.Buttons {
+  display: flex;
+}
+
+.input-text {
+  padding-left: 4px;
+  padding: 2px 2px 3px 4px;
 }

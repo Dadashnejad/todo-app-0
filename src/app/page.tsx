@@ -4,7 +4,7 @@ import { use, useEffect, useState } from "react";
 import App from "./components/App";
 import dynamic from "next/dynamic";
 import { TodoEditForm } from "@/app/components/TodoEditForm";
-import { BiEdit, BiTrashAlt, BiCheck } from "react-icons/bi";
+import { BiEdit, BiTrashAlt, BiCheck, BiX } from "react-icons/bi";
 
 const fetchMap = new Map<string, Promise<any>>();
 function queryClient<QueryResult>(
@@ -30,6 +30,7 @@ function Home() {
 
   const [editedTodo, setEditedTodo] = useState<any | null>(null);
   const [editedTitle, setEditedTitle] = useState("");
+  const [selectedTasks, setSelectedTasks] = useState<string[]>([]);
 
   async function deleteTask(taskId: string) {
     const response = await fetch(`http://localhost:3000/api/${taskId}`, {
@@ -84,21 +85,41 @@ function Home() {
       <ul>
         {data.map((showtasks) => (
           <li key={showtasks.id}>
-            <button
-              className="btn btn-toggle"
-              onClick={() => toggleTodo(showtasks.id, showtasks.state)}
-            >
-              <span>
-              <BiCheck size={20}></BiCheck>
-              </span>
-              
-            </button>
             <label>
-              <span className="text">{showtasks.task}</span>
+              <span
+                className="text"
+                style={{
+                  opacity: showtasks.state ? 0.7 : 1,
+                  textDecoration: showtasks.state ? "line-through" : "none",
+                  color: showtasks.state ? "green" : "inherit",
+                }}
+              >
+                {showtasks.task}
+              </span>
             </label>
             <div className="Buttons">
               <button
-                className="btn"
+                className="btn btn-toggle"
+                style={{
+                  backgroundColor: showtasks.state ? "red" : "#22c55e",
+                  opacity: showtasks.state ? 0.7 : 1,
+                }}
+                onClick={() => toggleTodo(showtasks.id, showtasks.state)}
+              >
+                <span>
+                  {showtasks.state ? (
+                    <BiX
+                      className="toggle-text"
+                      size={20}
+                      style={{ color: "black" }}
+                    /> // when task is done
+                  ) : (
+                    <BiCheck className="toggle-text" size={20} /> // Normal view
+                  )}
+                </span>
+              </button>
+              <button
+                className="btn btn-edit flex items-center justify-center"
                 onClick={() => handleEdit(showtasks.id, showtasks.task)}
               >
                 <span className="fas fa-edit">
@@ -107,7 +128,7 @@ function Home() {
               </button>
 
               <button
-                className="btn btn-danger"
+                className="btn btn-danger flex items-center justify-center"
                 onClick={() => deleteTask(showtasks.id)}
               >
                 <span className="fas fa-trash">
