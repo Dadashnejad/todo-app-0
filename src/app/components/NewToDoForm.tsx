@@ -6,14 +6,18 @@ export function NewToDoForm() {
   async function submitTask(e: React.FormEvent<HTMLFormElement>) {
     const one = JSON.stringify({ task });
     e.preventDefault();
-    const data = await fetch("http://localhost:3000/api/createTask", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: one,
-    });
-    location.reload();
+    if (one !== "") {
+      const data = await fetch("http://localhost:3000/api/createTask", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: one,
+      });
+      location.reload();
+    } else {
+      window.alert("Its empty");
+    }
   }
   function handleChange(e: React.ChangeEvent<HTMLInputElement>): void {
     setTask(e.target.value);

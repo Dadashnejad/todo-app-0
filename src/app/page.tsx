@@ -4,7 +4,7 @@ import { use, useEffect, useState } from "react";
 import App from "./components/App";
 import dynamic from "next/dynamic";
 import { TodoEditForm } from "@/app/components/TodoEditForm";
-import { BiEdit, BiTrashAlt } from "react-icons/bi";
+import { BiEdit, BiTrashAlt, BiCheck } from "react-icons/bi";
 
 const fetchMap = new Map<string, Promise<any>>();
 function queryClient<QueryResult>(
@@ -30,7 +30,6 @@ function Home() {
 
   const [editedTodo, setEditedTodo] = useState<any | null>(null);
   const [editedTitle, setEditedTitle] = useState("");
-
 
   async function deleteTask(taskId: string) {
     const response = await fetch(`http://localhost:3000/api/${taskId}`, {
@@ -62,12 +61,20 @@ function Home() {
     setEditedTodo(null);
     setEditedTitle("");
   }
-  
-  async function toggleTodo(taskId: string) {
-    const response = await fetch(`http://localhost:3000/api/${taskId}`, {
-      method: "DELETE",
-    });
-    const data = await response;
+
+  async function toggleTodo(taskId: string, completed: boolean) {
+    const editTask = JSON.stringify({ state: completed });
+    console.log(editTask);
+    const response = await fetch(
+      `http://localhost:3000/api/taskdone/${taskId}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: editTask,
+      }
+    );
     location.reload();
   }
 
@@ -77,6 +84,15 @@ function Home() {
       <ul>
         {data.map((showtasks) => (
           <li key={showtasks.id}>
+            <button
+              className="btn btn-toggle"
+              onClick={() => toggleTodo(showtasks.id, showtasks.state)}
+            >
+              <span>
+              <BiCheck size={20}></BiCheck>
+              </span>
+              
+            </button>
             <label>
               <span className="text">{showtasks.task}</span>
             </label>
