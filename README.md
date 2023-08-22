@@ -76,7 +76,9 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 DATABASE_URL="postgres://postgres:password@localhost:5432/tododb"
 8. راه اندازی prisma دستورات زیر را به ترتیب در terminal اجرا کنید
   `npm i prisma --save-dev`
+  
   `npx prisma init --datasource-provider postgresql`
+  
   `npx prisma migrate dev --name init`
   
 
