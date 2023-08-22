@@ -66,9 +66,23 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
    `cd todo-app-0`
 3. دپندنسی ها رو نصب کنید :
    `npm install`
-4. سرور رو استارت کنید:
+4. دیتابیس postgres رو دانلود و نصب کنید
+
+5. در cmd وارد postgres شوید
+  `psql -U postgres`
+6. دیتابیس با نام tododb بسازید
+
+7.یک فایل با نام env. بسازید و کد زیر را کپی و به جای password پسورد خود را قرار دهید
+DATABASE_URL="postgres://postgres:password@localhost:5432/tododb"
+8. راه اندازی prisma دستورات زیر را به ترتیب در terminal اجرا کنید
+  `npm i prisma --save-dev`
+  `npx prisma init --datasource-provider postgresql`
+  `npx prisma migrate dev --name init`
+  
+
+9. سرور رو استارت کنید:
    `npm run dev`
-5. مرورگر رو باز کنید و به آدرس زیر بروید:
+10. مرورگر رو باز کنید و به آدرس زیر بروید:
    `http://localhost:3000`
 
 ## نحوه استفاده
@@ -84,9 +98,7 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 اپلیکیشن از یک
 Restful API
 ساده استفاده کرده تا با تسک ها تعامل برقرار کند
-
-- `GET /api/getTasks`: لیست تسک هارو میگیرد
-- `DELETE /api/:taskId`: یک تسک رو پاک میکنه
+قابلیت انجام عمل های CRUD
 
 ## زبان های استفاده شده
 
