@@ -73,17 +73,18 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 6. دیتابیس با نام tododb بسازید
 
 7.یک فایل با نام env. بسازید و کد زیر را کپی و به جای password پسورد خود را قرار دهید
-DATABASE_URL="postgres://postgres:password@localhost:5432/tododb"
+`DATABASE_URL="postgres://postgres:password@localhost:5432/tododb"`
+
 8. راه اندازی prisma دستورات زیر را به ترتیب در terminal اجرا کنید
   `npm i prisma --save-dev`
   
   `npx prisma init --datasource-provider postgresql`
   
   `npx prisma migrate dev --name init`
-  
 
 9. سرور رو استارت کنید:
    `npm run dev`
+
 10. مرورگر رو باز کنید و به آدرس زیر بروید:
    `http://localhost:3000`
 
