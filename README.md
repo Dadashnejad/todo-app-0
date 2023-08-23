@@ -69,39 +69,49 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 4. دیتابیس postgres رو دانلود و نصب کنید
 
 5. در cmd وارد postgres شوید
-  `psql -U postgres`
+   `psql -U postgres`
 6. دیتابیس با نام tododb بسازید
 
 7.یک فایل با نام env. بسازید و کد زیر را کپی و به جای password پسورد خود را قرار دهید
 `DATABASE_URL="postgres://postgres:password@localhost:5432/tododb"`
 
 8. راه اندازی prisma دستورات زیر را به ترتیب در terminal اجرا کنید
-  `npm i prisma --save-dev`
-  
-  `npx prisma init --datasource-provider postgresql`
-  
-  `npx prisma migrate dev --name init`
+   `npm i prisma --save-dev`
+
+`npx prisma init --datasource-provider postgresql`
+
+`npx prisma migrate dev --name init`
 
 9. سرور رو استارت کنید:
    `npm run dev`
 
 10. مرورگر رو باز کنید و به آدرس زیر بروید:
-   `http://localhost:3000`
+    `http://localhost:3000`
 
 ## نحوه استفاده
 
 1. برای اضافه کردن یک تسک جدید داخل اینپوت مقداری وارد کنید و دکمه اضافه کردن به لیست رو بزنید
 2. در صفحه اصلی یک لیست از تسک ها میبینید
+   <<<<<<< HEAD
 3. برای اینکه یک تسک رو به عنوان انجام شده علامت گذاری کنید چک باکس کنار هر تسک رو کلیک کنید
 4. برای ادیت بر روی دکمه ی ادیت بزنید
-5. برای دیلیت بر روی دکمه دیلیت بزنید
+5. # برای دیلیت بر روی دکمه دیلیت بزنید
+6. برای ادیت بر روی دکمه ی ادیت بزنید
+7. برای دیلیت بر روی دکمه دیلیت بزنید
+   > > > > > > > main
 
 ## API
 
 اپلیکیشن از یک
 Restful API
 ساده استفاده کرده تا با تسک ها تعامل برقرار کند
+<<<<<<< HEAD
 قابلیت انجام عمل های CRUD
+=======
+
+عملیات CRUD رو انجام میده
+
+> > > > > > > main
 
 ## زبان های استفاده شده
 

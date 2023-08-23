@@ -95,6 +95,7 @@ body {
   cursor: pointer;
   outline: none;
   transition: 0.4s;
+  align-items: center;
 }
 
 .btn:hover,
@@ -153,6 +154,7 @@ body {
   gap: 8px;
   align-items: center;
   justify-content: space-between;
+  margin-top: 4px;
 }
 
 .list li label {

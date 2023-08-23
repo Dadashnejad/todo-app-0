@@ -1,6 +1,6 @@
 "use client";
 
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import App from "./components/App";
 import dynamic from "next/dynamic";
 import { TodoEditForm } from "@/app/components/TodoEditForm";
@@ -87,11 +87,10 @@ function Home() {
       )
     );
   }
-
   return (
     <main className="list">
       <App />
-      <ul>
+      <ul className="Todo">
         {data.map((showtasks) => (
           <li key={showtasks.id}>
             <label>
