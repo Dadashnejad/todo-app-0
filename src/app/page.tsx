@@ -6,17 +6,6 @@ import dynamic from "next/dynamic";
 import { TodoEditForm } from "@/app/components/TodoEditForm";
 import { BiEdit, BiTrashAlt, BiCheck, BiX } from "react-icons/bi";
 
-const fetchMap = new Map<string, Promise<any>>();
-function queryClient<QueryResult>(
-  name: string,
-  query: () => Promise<QueryResult>
-): Promise<QueryResult> {
-  if (!fetchMap.has(name)) {
-    fetchMap.set(name, query());
-  }
-  return fetchMap.get(name)!;
-}
-
 function Home() {
   const [data, setData] = useState<
     { id: string; task: string; state: boolean }[]
@@ -33,8 +22,6 @@ function Home() {
   }, []);
 
   const [editedTodo, setEditedTodo] = useState<any | null>(null);
-  const [editedTitle, setEditedTitle] = useState("");
-  const [selectedTasks, setSelectedTasks] = useState<string[]>([]);
 
   async function deleteTask(taskId: string) {
     const response = await fetch(`http://localhost:3000/api/${taskId}`, {
@@ -63,12 +50,10 @@ function Home() {
 
   function handleEdit(todoId: string, todoTitle: string) {
     setEditedTodo({ id: todoId, title: todoTitle });
-    setEditedTitle(todoTitle);
   }
 
   function handleCancelEdit() {
     setEditedTodo(null);
-    setEditedTitle("");
   }
 
   async function toggleTodo(taskId: string, completed: boolean) {
